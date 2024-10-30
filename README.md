@@ -14,11 +14,11 @@ You might need to install PyTorch with CUDA/ROCm.
 ## Running experiments
 Train the agent:
 ``` sh
-python train.py +env=walker-walk
+python train.py env=walker-walk
 ```
 To log metrics with W&B:
 ``` sh
-python train.py +env=walker-walk ++use_wandb=True
+python train.py env=walker-walk ++use_wandb=True
 ```
 All tested tasks are listed in`cfgs/env`.
 
@@ -26,13 +26,13 @@ All tested tasks are listed in`cfgs/env`.
 This repo uses hydra for configuration.
 You can easily try new hyperparameters for `iQRL` by overriding them on the command line. For example,
 ``` sh
-python train.py +env=walker-walk ++use_wandb=True ++agent.batch_size=512
+python train.py env=walker-walk ++use_wandb=True ++agent.batch_size=512
 ```
 changes the batch size to be 512 instead of the default value found in `iqrl.py/iQRLConfig`.
 
 You can also use hydra to submit multiple SLURM jobs directly from the command line using
 ``` sh
-python train.py -m +env=walker-walk ++use_wandb=True ++agent.batch_size=256,512 ++agent.lr=1e-4,1e-4
+python train.py -m env=walker-walk ++use_wandb=True ++agent.batch_size=256,512 ++agent.lr=1e-4,1e-4
 ```
 This uses the `utils/cluster_utils.py/SlurmConfig` to configure the jobs, setting `timeout_min=1440` (i.e. 24hrs) and `mem_gb=32`.
 If you want to run the job for longer (e.g 48hrs), you can use the following
